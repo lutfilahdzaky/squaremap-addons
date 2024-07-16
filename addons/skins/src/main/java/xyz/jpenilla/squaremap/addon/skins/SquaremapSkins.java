@@ -2,6 +2,7 @@ package xyz.jpenilla.squaremap.addon.skins;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -128,8 +129,12 @@ public final class SquaremapSkins extends JavaPlugin {
                     }
                 }
             }
+            BufferedImage resizedHead = new BufferedImage(16, 16, head.getType());
+            Graphics2D g2d = resizedHead.createGraphics();
+            g2d.drawImage(head, 0, 0, 16, 16, null);
+            g2d.dispose();
             File file = new File(skinsDir, name + ".png");
-            ImageIO.write(head, "png", file);
+            ImageIO.write(resizedHead, "png", file);
         } catch (Exception e) {
             this.getSLF4JLogger().info("Could not save texture {} to {}", url, new File(skinsDir, name + ".png"), e);
         }
